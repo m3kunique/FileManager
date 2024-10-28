@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud storage</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+</head>
+<body>
+<th:block th:replace="~{header :: header}"/>
+
+    <div class="ms-5 me-5 mt-2 mb-5">
+        <div class="container-fluid bg-body-secondary rounded p-2 text-center">
+  <div class="fs-5"> Search result for the query: <span class="ms-1 text-primary fs-5 fw-bold" th:text="${query}"></span></div>
+<!--             Files Section -->
+            <div>
+                <div class="row">
+                    <div class="col-md-2" th:each="object : ${searchResult}">
+
+                        <a th:if="${!object.isFile}"
+                           th:href="@{|/?path=${object.getPath()}|}">
+                            <img th:src="@{/images/folder.png}" alt="folderIcon"/>
+                        </a>
+                        <a th:if="${object.isFile}"
+                           th:href="@{|/?path=${object.getPath()}|}">
+                            <img th:src="@{/images/file.png}" alt="fileIcon"/>
+                        </a>
+
+                        <div class="m-2 " th:text="${object.getName()}"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

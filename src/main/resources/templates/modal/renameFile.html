@@ -1,0 +1,24 @@
+<div class="modal fade" id="renameFile" tabindex="-1" aria-labelledby="renameFileLabel" aria-hidden="true" th:fragment="renameFileModal">
+    <div class="modal-dialog d-flex">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="renameFileLabel">Rename</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form class="m-2" th:method="POST"  th:action="@{/file}" th:object="${objectRequestDto}">
+                <label class="form-label" for="name">Write new name for your file:</label>
+                <input type="hidden" name="_method" value="patch">
+
+                <input class="form-control" type="text"  id="name"  name="name" />
+                <input type="hidden" name="path">
+                <input type="hidden" name="owner">
+
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-primary align-items-end" type="submit">Rename</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

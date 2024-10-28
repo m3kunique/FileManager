@@ -1,0 +1,29 @@
+<button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#createEmptyFolder" th:fragment="createEmptyFolderButton">
+    Create empty folder
+</button>
+
+
+<div class="modal fade" id="createEmptyFolder" tabindex="-1" aria-labelledby="createEmptyFolderLabel" aria-hidden="true" th:fragment="createEmptyFolderModal">
+    <div class="modal-dialog d-flex">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="uploadFolderLabel">Create empty folder</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form class="m-2" th:method="POST"  th:action="@{/folder/create}" th:object="${createEmptyFolderDto}">
+
+
+
+                <label class="form-label" for="folderName">Folder name:</label>
+                <input class="form-control" type="text"  id="folderName" placeholder="Write folder name" th:field="*{name}"/>
+
+                <input type="hidden" name="path" th:each="breadcrumb, iterStat : ${breadcrumbs}" th:if="${iterStat.last}" th:value="${breadcrumb.url}">
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-primary align-items-end" type="submit">Create</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

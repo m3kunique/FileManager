@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud storage</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+</head>
+<body>
+<th:block th:replace="~{header :: header}"/>
+
+<div class="container">
+
+    <div class="registration-form mt-5">
+        <div th:if="${successMessage}" class="alert alert-success" >
+            <span th:text="${successMessage}"></span>
+        </div>
+        <form name="f" method="post" th:action="@{/login_process}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <div class="mb-3">
+                <label class="form-label" for="login">Login</label>
+                <input class="form-control" type="text" name="username" id="login" placeholder="Enter your login"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="password" name="password" id="password"
+                       placeholder="Enter your password"/>
+
+            </div>
+
+            <button class="d-flex btn btn-primary" type="submit">Submit</button>
+
+            <h5 class="text-center">Don't have an account? <a
+                    class="link-offset-2 link-underline link-underline-opacity-0" href="/registration">Sign up</a></h5>
+
+            <div th:if="${param.error}" class="alert alert-danger">
+                <span>Incorrect login or password</span>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>-->
+</body>
+</html>

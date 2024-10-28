@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  cloudapp:
+    container_name: CloudFileStorage
+    image: m3k/cloud-storage-app
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:postgresql://database:5432/database
+      - DB_USERNAME=m3kCloud
+      - DB_PASSWORD=admin351
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MINIO_URL=http://minio:9000
+      - MINIO_USERNAME=admin
+      - MINIO_PASSWORD=admin
+    depends_on:
+      - database
+      - redis
+      - minio
+
+  database:
+    container_name: CloudDb
+    image: postgres:16.3
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=database
+      - POSTGRES_USER=m3kCloud
+      - POSTGRES_PASSWORD=admin351
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  minio:
+    image: quay.io/minio/minio
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ":9001"

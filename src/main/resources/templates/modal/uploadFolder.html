@@ -1,0 +1,27 @@
+<button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#uploadFolder" th:fragment="uploadFolderButton">
+    Download folder
+</button>
+
+
+<div class="modal fade" id="uploadFolder" tabindex="-1" aria-labelledby="uploadFolderLabel" aria-hidden="true" th:fragment="uploadFolderModal">
+    <div class="modal-dialog d-flex">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="uploadFolderLabel">Download folder</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form class="m-2" th:method="POST" enctype="multipart/form-data" th:action="@{/folder}">
+
+                <label for="folder">Choose a folder:</label>
+
+                <input type="file" id="folder" name="folder" webkitdirectory="true" multiple/>
+                <input type="hidden" name="path" th:each="breadcrumb, iterStat : ${breadcrumbs}" th:if="${iterStat.last}" th:value="${breadcrumb.url}">
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-primary align-items-end" type="submit">Upload</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

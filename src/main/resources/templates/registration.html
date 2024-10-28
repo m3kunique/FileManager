@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud storage</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+</head>
+<body>
+
+<th:block th:replace="~{header :: header}"/>
+
+
+<div class="container">
+    <div class="registration-form mt-5">
+        <form th:method="POST" th:action="@{/registration}" th:object="${customerDto}">
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input class="form-control" type="text" id="login" th:field="*{login}" placeholder="Enter your login">
+                <div class="text-danger fs-6" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input class="form-control" type="password" id="password" th:field="*{password}"
+                       placeholder="Enter your password">
+                <div class="text-danger fs-6" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm password</label>
+                <input class="form-control" type="password" id="confirmPassword" th:field="*{confirmedPassword}"
+                       placeholder="Repeat your password">
+                <div class="text-danger fs-6" th:if="${passwordMismatchError}" th:text="${passwordMismatchError}"></div>
+            </div>
+
+            <button class="d-flex btn btn-primary" type="submit">Submit</button>
+
+            <h5 class="text-center">Already have an account? <a
+                    class="link-offset-2 link-underline link-underline-opacity-0" href="/login">Sign in</a></h5>
+        </form>
+
+        <div th:if="${error}" class="alert alert-danger" >
+            <span th:text="${error}"></span>
+        </div>
+
+    </div>
+</div>
+
+<!--<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>-->
+</body>
+</html>

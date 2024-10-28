@@ -1,0 +1,27 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#uploadFile" th:fragment="uploadFileButton">
+    Download file
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="uploadFileLabel" aria-hidden="true" th:fragment="uploadFileModal">
+    <div class="modal-dialog d-flex">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="uploadFileLabel">Download file</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form class="m-2" th:method="POST" enctype="multipart/form-data" th:action="@{/file}">
+                <label for="file">Choose a file:</label>
+                <input type="file" id="file" name="file"/>
+
+                <input type="hidden" name="path" th:each="breadcrumb, iterStat : ${breadcrumbs}" th:if="${iterStat.last}" th:value="${breadcrumb.url}">
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-primary align-items-end" type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
